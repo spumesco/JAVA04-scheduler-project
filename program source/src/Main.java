@@ -220,7 +220,6 @@ class WeekScaduler {
     }
 
     public void ChangeToDo() {
-        label:
         while (true) {
             System.out.print("어떤 일정의 할일?(Enter시 종료): ");
             String sch = sc.nextLine().trim();
@@ -245,36 +244,32 @@ class WeekScaduler {
             }
             System.out.print("무엇을 수정할까요? (1.일정 2.마감일 3.마감시간 4.할일, Enter시 모두 Enter): ");
             String what = sc.nextLine().trim();
-            switch (what) {
-                case "":
-                    System.out.print("삭제하시겠습니까?(y/n): ");
-                    String del = sc.nextLine().trim();
-                    if (del.isEmpty()) del = "n";
-                    if (del.equalsIgnoreCase("y")) {
-                        todos.remove(target);
-                        System.out.println("삭제되었습니다.");
-                    }
-                    break label;
-                case "1":
-                    System.out.print("새 일정명: ");
-                    String newSch = sc.nextLine().trim();
-                    if (!newSch.isEmpty()) target.scheduleName = newSch;
-                    break;
-                case "2":
-                    System.out.print("새 마감일: ");
-                    String newDate = sc.nextLine().trim();
-                    if (!newDate.isEmpty()) target.dueDate = newDate;
-                    break;
-                case "3":
-                    System.out.print("새 마감시간: ");
-                    String newTime = sc.nextLine().trim();
-                    if (!newTime.isEmpty()) target.dueTime = newTime;
-                    break;
-                case "4":
-                    System.out.print("새 할일: ");
-                    String newTask = sc.nextLine().trim();
-                    if (!newTask.isEmpty()) target.task = newTask;
-                    break;
+            if (what.isEmpty()) {
+                System.out.print("삭제하시겠습니까?(y/n): ");
+                String del = sc.nextLine().trim();
+                if (del.isEmpty()) del = "n";
+                if (del.equalsIgnoreCase("y")) {
+                    todos.remove(target);
+                    System.out.println("삭제되었습니다.");
+                }
+                break;
+            }
+            if (what.equals("1")) {
+                System.out.print("새 일정명: ");
+                String newSch = sc.nextLine().trim();
+                if (!newSch.isEmpty()) target.scheduleName = newSch;
+            } else if (what.equals("2")) {
+                System.out.print("새 마감일: ");
+                String newDate = sc.nextLine().trim();
+                if (!newDate.isEmpty()) target.dueDate = newDate;
+            } else if (what.equals("3")) {
+                System.out.print("새 마감시간: ");
+                String newTime = sc.nextLine().trim();
+                if (!newTime.isEmpty()) target.dueTime = newTime;
+            } else if (what.equals("4")) {
+                System.out.print("새 할일: ");
+                String newTask = sc.nextLine().trim();
+                if (!newTask.isEmpty()) target.task = newTask;
             }
             System.out.println("수정되었습니다.");
         }
@@ -358,14 +353,14 @@ public class Main {
             ws.ClearToDo();
         }
         while (true) {
-            System.out.print("할일을 수정하시겠습니까?(Enter시 종료, y/n): ");
+            System.out.print("기존 할일을 수정하시겠습니까?(Enter시 종료, y/n): ");
             String ans = ws.sc.nextLine().trim();
             if (ans.isEmpty()) ans = "n";
             if (ans.equalsIgnoreCase("n")) break;
             ws.ChangeToDo();
         }
         while (true) {
-            System.out.print("할일을 추가하시겠습니까?(Enter시 종료, y/n): ");
+            System.out.print("새 할일을 추가하시겠습니까?(Enter시 종료, y/n): ");
             String ans = ws.sc.nextLine().trim();
             if (ans.isEmpty()) ans = "n";
             if (ans.equalsIgnoreCase("n")) break;
